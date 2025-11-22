@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ViewPDF - PDF Darker By HMK CodeWeb </title>
+    <link rel="shortcut icon" href="./PDFDarkerLogo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #0f172a;
+        color: white;
+      }
+      iframe {
+        width: 100%;
+        height: 90vh;
+        border: 1px solid #1e293b;
+        border-radius: 12px;
+      }
+      .science-gothic-Font {
+        font-family: "Science Gothic", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        font-variation-settings: "slnt" 0, "wdth" 100, "CTRS" 0;
+      }
+    </style>
+  </head>
+
+  <body class="flex science-gothic-Font flex-col items-center px-4">
+    <!-- Navbar -->
+    <div
+      class="w-full flex-wrap gap-5 px-5 max-w-6xl flex items-center justify-between py-4 border-b border-neutral-700"
+    >
+      <div class="flex items-center space-x-2">
+        <span class="text-xl font-semibold text-white">PDF Darker</span>
+      </div>
+
+      <nav class="flex space-x-8 text-sm font-medium text-neutral-400">
+        <a href="/" title="Home" class="hover:text-white transition">Home</a>
+        <a href="/about" title="About Us" class="hover:text-white transition"
+          >About Us</a
+        >
+        <a href="/view-pdf" title="Darker" class="hover:text-white transition"
+          >Convert To Dark</a
+        >
+      </nav>
+    </div>
+
+    <h1 class="text-3xl font-semibold mt-4 mb-6">Open Your PDF</h1>
+
+    <!-- File Input -->
+    <label
+      class="px-5 py-3 bg-gray-600 rounded cursor-pointer hover:bg-gray-700 transition"
+    >
+      Select PDF
+      <input
+        type="file"
+        id="pdfInput"
+        accept="application/pdf"
+        class="hidden"
+      />
+    </label>
+
+    <!-- Viewer -->
+    <div class="w-full max-w-6xl mt-6">
+      <iframe id="pdfViewer"></iframe>
+    </div>
+    <footer
+      class="flex flex-col items-center justify-around w-full py-16 text-sm bg-[#171717]"
+    >
+      <h1>PDF Darker</h1>
+      <p class="mt-4 text-center">
+        Copyright © 2025 PDF Darker. All rights reservered.
+      </p>
+      <div class="flex items-center gap-4 mt-6">
+        <a
+          href="https://github.com/hassaanhaider88/PDF_Darker"
+          target="_blank"
+          class="font-medium text-gray-300 hover:text-white transition-all"
+        >
+          GitHub Code
+        </a>
+        <div class="h-4 w-px bg-black/20"></div>
+        <a
+          href="https://hassaan-haider.netlify.app"
+          target="_blank"
+          class="font-medium text-gray-300 hover:text-white transition-all"
+        >
+          Developer
+        </a>
+      </div>
+    </footer>
+    <script>
+      const input = document.getElementById("pdfInput");
+      const viewer = document.getElementById("pdfViewer");
+
+      input.addEventListener("change", function () {
+        const file = this.files[0];
+        if (!file) return;
+
+        const fileURL = URL.createObjectURL(file);
+        viewer.src = fileURL; // Load PDF in iframe
+      });
+    </script>
+  </body>
+</html>

@@ -1,145 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Dark Mode Converter</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Darker By HMK CodeWeb </title>
+    <link rel="shortcut icon" href="./PDFDarkerLogo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #e0e0e0;
-            --accent-color: #bb86fc;
-            --button-hover: #3700b3;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify_content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .container {
-            background-color: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h1 {
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-            color: var(--accent-color);
-        }
-
-        p {
-            margin-bottom: 2rem;
-            color: #a0a0a0;
-        }
-
-        .upload-area {
-            border: 2px dashed #444;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .upload-area:hover {
-            border-color: var(--accent-color);
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        label {
-            cursor: pointer;
-            display: block;
-            font-size: 1.1rem;
-        }
-
-        button {
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.1s;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: var(--button-hover);
-            color: white;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .loader {
-            display: none;
-            margin-top: 1rem;
-            color: var(--accent-color);
-        }
+      .science-gothic-Font {
+        font-family: "Science Gothic", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        font-variation-settings: "slnt" 0, "wdth" 100, "CTRS" 0;
+      }
     </style>
-</head>
-<body>
+  </head>
 
-<div class="container">
-    <h1>PDF Dark Mode</h1>
-    <p>Upload a PDF to invert text pages to dark mode.</p>
-    
-    <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
-        <div class="upload-area" id="dropZone">
-            <input type="file" name="file" id="fileInput" accept=".pdf" required>
-            <label for="fileInput" id="fileLabel">Click to select PDF</label>
+  <body
+    class="science-gothic-Font min-h-screen bg-neutral-900 text-white flex flex-col items-center p-4"
+  >
+    <!-- Navbar -->
+    <div
+      class="w-full flex-wrap gap-5 px-5 max-w-6xl flex items-center justify-between py-4 border-b border-neutral-700"
+    >
+      <div class="flex items-center space-x-2">
+        <span class="text-xl font-semibold text-white">PDF Darker</span>
+      </div>
+
+      <nav class="flex space-x-8 text-sm font-medium text-neutral-400">
+        <a href="/" title="Home" class="hover:text-white transition">Home</a>
+        <a href="/about" title="About Us" class="hover:text-white transition"
+          >About Us</a
+        >
+        <a href="/view-pdf" title="Darker" class="hover:text-white transition"
+          >Convert To Dark</a
+        >
+      </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div
+      class="bg-neutral-800 shadow-xl rounded-2xl w-full max-w-4xl mt-10 border border-neutral-700"
+    >
+      <div class="p-10 flex flex-col justify-center items-center">
+        <h1 class="text-3xl font-bold mb-2 text-white">
+          Dark Mode PDF Converter
+        </h1>
+        <p class="text-neutral-400 mb-10 text-center">
+          Turn your PDFs into a clean dark-themed version
+        </p>
+
+        <!-- Upload Box -->
+        <div title="Upload here" class="w-full flex justify-center">
+          <form
+            action="/upload"
+            method="post"
+            enctype="multipart/form-data"
+            id="uploadForm"
+            class="w-full flex flex-col items-center"
+          >
+            <input
+              type="file"
+              name="file"
+              id="fileInput"
+              accept=".pdf"
+              hidden
+              required
+            />
+
+            <label
+              for="fileInput"
+              class="w-full max-w-lg h-40 flex flex-col items-center justify-center rounded-xl border-2 border-neutral-600 border-dashed bg-neutral-900 text-neutral-400 cursor-pointer hover:border-white hover:text-white transition"
+            >
+              <span id="fileLabel" class="text-sm">Click to select PDF</span>
+            </label>
+
+            <button
+              type="submit"
+              id="convertBtn"
+              class="mt-10 bg-white text-black font-semibold py-3 px-10 rounded-lg shadow-lg hover:bg-neutral-300 transition disabled:bg-neutral-500 disabled:text-neutral-800"
+            >
+              Convert & Download
+              <div id="loader" class="hidden text-xs text-neutral-300 mt-2">
+                Processing…
+              </div>
+            </button>
+          </form>
         </div>
-        <button type="submit" id="convertBtn">Convert & Download</button>
-    </form>
+      </div>
+    </div>
+    <footer class="flex flex-col items-center justify-around w-full py-16 text-sm  bg-[#171717]">
+    <h1>PDF Darker</h1>
+    <p class="mt-4 text-center">Copyright © 2025 PDF Darker. All rights reservered.</p>
+    <div class="flex items-center gap-4 mt-6">
+        <a href="https://github.com/hassaanhaider88/PDF_Darker" target="_blank" class="font-medium text-gray-300 hover:text-white transition-all">
+            GitHub Code
+        </a>
+        <div class="h-4 w-px bg-black/20"></div>
+        <a href="https://hassaan-haider.netlify.app" target="_blank" class="font-medium text-gray-300 hover:text-white transition-all">
+            Developer
+        </a>
+    </div>
+</footer>
 
-    <div class="loader" id="loader">Processing... Please wait.</div>
-</div>
+    <!-- Script -->
+    <script>
+      const fileInput = document.getElementById("fileInput");
+      const fileLabel = document.getElementById("fileLabel");
+      const form = document.getElementById("uploadForm");
+      const loader = document.getElementById("loader");
+      const btn = document.getElementById("convertBtn");
 
-<script>
-    const fileInput = document.getElementById('fileInput');
-    const fileLabel = document.getElementById('fileLabel');
-    const form = document.getElementById('uploadForm');
-    const loader = document.getElementById('loader');
-    const btn = document.getElementById('convertBtn');
-
-    fileInput.addEventListener('change', (e) => {
+      fileInput.addEventListener("change", (e) => {
+        console.log(fileInput)
         if (e.target.files.length > 0) {
-            fileLabel.textContent = e.target.files[0].name;
+          fileLabel.textContent = e.target.files[0].name;
         }
-    });
+      });
 
-    form.addEventListener('submit', () => {
-        loader.style.display = 'block';
+      form.addEventListener("submit", () => {
+        loader.classList.remove("hidden");
         btn.disabled = true;
-        btn.textContent = 'Converting...';
-        
-        // Re-enable after a short delay to allow next upload (since it's a download response)
-        setTimeout(() => {
-            loader.style.display = 'none';
-            btn.disabled = false;
-            btn.textContent = 'Convert & Download';
-        }, 5000);
-    });
-</script>
+        btn.textContent = "Converting...";
 
-</body>
+        setTimeout(() => {
+          loader.classList.add("hidden");
+          btn.disabled = false;
+          btn.textContent = "Convert & Download";
+        }, 5000);
+      });
+    </script>
+  </body>
 </html>
