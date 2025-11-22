@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Dark Mode Converter</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --button-hover: #3700b3;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify_content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 2rem;
+            color: #a0a0a0;
+        }
+
+        .upload-area {
+            border: 2px dashed #444;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-color);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+            color: white;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .loader {
+            display: none;
+            margin-top: 1rem;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PDF Dark Mode</h1>
+    <p>Upload a PDF to invert text pages to dark mode.</p>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+        <div class="upload-area" id="dropZone">
+            <input type="file" name="file" id="fileInput" accept=".pdf" required>
+            <label for="fileInput" id="fileLabel">Click to select PDF</label>
+        </div>
+        <button type="submit" id="convertBtn">Convert & Download</button>
+    </form>
+
+    <div class="loader" id="loader">Processing... Please wait.</div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const fileLabel = document.getElementById('fileLabel');
+    const form = document.getElementById('uploadForm');
+    const loader = document.getElementById('loader');
+    const btn = document.getElementById('convertBtn');
+
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            fileLabel.textContent = e.target.files[0].name;
+        }
+    });
+
+    form.addEventListener('submit', () => {
+        loader.style.display = 'block';
+        btn.disabled = true;
+        btn.textContent = 'Converting...';
+        
+        // Re-enable after a short delay to allow next upload (since it's a download response)
+        setTimeout(() => {
+            loader.style.display = 'none';
+            btn.disabled = false;
+            btn.textContent = 'Convert & Download';
+        }, 5000);
+    });
+</script>
+
+</body>
+</html>
