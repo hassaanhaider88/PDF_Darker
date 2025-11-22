@@ -28,7 +28,7 @@ Before you begin, ensure you have **Python 3.6+** installed on your system.
 
 1.  **Navigate to the project directory**:
     ```bash
-    cd c:/Users/hassa/Desktop/Pythons/pdfs
+    cd c:/Desktop/Pythons/pdfs
     ```
 
 2.  **Install dependencies**:
