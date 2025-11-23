@@ -1,45 +1,10 @@
 import os
 import fitz  # PyMuPDF
-from flask import Flask, render_template, request, send_file,send_from_directory
+from flask import Flask, render_template, request, send_file, send_from_directory
 from PIL import Image, ImageOps
 import io
 
 app = Flask(__name__)
-
-
-def invert_except_images(page, pix):
-    """Invert page except image regions."""
-    img = Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
-
-    # Create mask (white where image exists, black elsewhere)
-    mask = Image.new("L", img.size, 0)
-
-    for img_info in page.get_images(full=True):
-        xref = img_info[0]
-
-        # Extract image boundary
-        rects = page.get_image_rects(xref)
-        for r in rects:
-            # Convert PDF coordinates to pixel coordinates
-            x0 = int(r.x0 * pix.xres / 72)
-            y0 = int(r.y0 * pix.yres / 72)
-            x1 = int(r.x1 * pix.xres / 72)
-            y1 = int(r.y1 * pix.yres / 72)
-
-            # Mark area as "image area" (white)
-            for y in range(y0, y1):
-                for x in range(x0, x1):
-                    mask.putpixel((x, y), 255)
-
-    # Invert whole page
-    inverted = ImageOps.invert(img)
-
-    # Composite:
-    # - Where mask is white → original image
-    # - Where mask is black → inverted text/background
-    final = Image.composite(img, inverted, mask)
-
-    return final
 
 
 def process_pdf_in_memory(input_pdf_bytes):
@@ -48,30 +13,26 @@ def process_pdf_in_memory(input_pdf_bytes):
 
     for page_num in range(len(input_pdf)):
         page = input_pdf[page_num]
-        image_list = page.get_images(full=True)
 
-        # Render page as high-res image
+        # Render page to high-resolution image
         pix = page.get_pixmap(matrix=fitz.Matrix(2, 2))
 
-        if image_list:
-            # Invert only background + text
-            final_img = invert_except_images(page, pix)
-        else:
-            # Fully invert normal pages
-            final_img = ImageOps.invert(
-                Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
-            )
+        # Convert PDF page to image
+        page_img = Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
 
-        # Convert final image to bytes
+        # FULL INVERT (images + text + everything)
+        final_img = ImageOps.invert(page_img)
+
+        # Convert final inverted image to bytes
         buf = io.BytesIO()
         final_img.save(buf, format="JPEG", quality=95)
         img_bytes = buf.getvalue()
 
-        # Create new PDF page
+        # Create new page and insert final image
         new_page = output_pdf.new_page(width=page.rect.width, height=page.rect.height)
         new_page.insert_image(page.rect, stream=img_bytes)
 
-    # Return output PDF bytes
+    # Export PDF
     out_buffer = io.BytesIO()
     output_pdf.save(out_buffer)
     out_buffer.seek(0)
@@ -86,9 +47,11 @@ def process_pdf_in_memory(input_pdf_bytes):
 def index():
     return render_template('index.html')
 
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory('static', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 @app.route('/about')
 def about():
@@ -121,7 +84,7 @@ def upload_file():
             output_pdf_buffer,
             mimetype='application/pdf',
             as_attachment=True,
-            download_name=f"dark_{file.filename}"
+            download_name=f"PDF-Darker_{file.filename}"
         )
 
     except Exception as e:
@@ -130,6 +93,7 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
 
 
 # import os
