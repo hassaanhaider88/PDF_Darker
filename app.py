@@ -52,6 +52,9 @@ def index():
 def favicon():
     return send_from_directory('static', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/PDFDarkerLogo')
+def Logo():
+    return send_from_directory('static','PDFDarkerLogo.png', mimetype="image/png")
 
 @app.route('/about')
 def about():
@@ -62,6 +65,9 @@ def about():
 def viewpdf():
     return render_template('ViewPDF.html')
 
+@app.route('/compress-pdf')
+def compress():
+    return render_template('Compress.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -89,6 +95,68 @@ def upload_file():
 
     except Exception as e:
         return f"Error: {e}", 500
+
+@app.route('/compress', methods=['POST'])
+def compress_pdf():
+    if 'file' not in request.files:
+        return 'No file part', 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No selected file', 400
+
+    if not file.filename.lower().endswith('.pdf'):
+        return 'Invalid file type', 400
+
+    try:
+        input_bytes = file.read()
+        compressed_pdf_buffer = compress_pdf_in_memory(input_bytes)
+
+        return send_file(
+            compressed_pdf_buffer,
+            mimetype='application/pdf',
+            as_attachment=True,
+            download_name=f"PDF-Compressed_{file.filename}"
+        )
+
+    except Exception as e:
+        return f"Error: {e}", 500
+
+
+
+def compress_pdf_in_memory(input_pdf_bytes):
+    input_pdf = fitz.open(stream=input_pdf_bytes, filetype="pdf")
+    output_pdf = fitz.open()
+
+    for page_num in range(len(input_pdf)):
+        page = input_pdf[page_num]
+
+        # Render page with lower resolution for compression  
+        pix = page.get_pixmap(matrix=fitz.Matrix(1, 1))  # DPI reduced
+
+        # Convert to PIL image
+        img = Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB")
+
+        # Compress image heavily
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=40, optimize=True)  
+        img_bytes = buf.getvalue()
+
+        # Create new PDF page
+        new_page = output_pdf.new_page(width=page.rect.width, height=page.rect.height)
+        new_page.insert_image(page.rect, stream=img_bytes)
+
+    # Save compressed PDF
+    output_buffer = io.BytesIO()
+    output_pdf.save(output_buffer, garbage=4, deflate=True, clean=True)
+    output_buffer.seek(0)
+
+    input_pdf.close()
+    output_pdf.close()
+
+    return output_buffer
+
 
 
 if __name__ == '__main__':

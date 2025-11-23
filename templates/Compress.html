@@ -41,11 +41,8 @@
         <a href="/about" title="About Us" class="hover:text-white transition"
           >About Us</a
         >
-        <a href="/view-pdf" title="Darker" class="hover:text-white transition"
-          >View PDF</a
-        >
-        <a href="/compress-pdf" title="Darker" class="hover:text-white transition"
-          >Compress PDF</a
+        <a href="/" title="Darker" class="hover:text-white transition"
+          >View PDf</a
         >
       </nav>
     </div>
@@ -56,16 +53,16 @@
     >
       <div class="p-10 flex flex-col justify-center items-center">
         <h1 class="text-3xl font-bold mb-2 text-white">
-          Dark Mode PDF Converter
+          PDF Compress And  Reduce the Size
         </h1>
         <p class="text-neutral-400 mb-10 text-center">
-          Turn your PDFs into a clean dark-themed version
+          Reduce the real size of pdf to some KBs easily 
         </p>
 
         <!-- Upload Box -->
         <div title="Upload here" class="w-full flex justify-center">
           <form
-            action="/upload"
+            action="/compress"
             method="post"
             enctype="multipart/form-data"
             id="uploadForm"
@@ -92,7 +89,7 @@
               id="convertBtn"
               class="mt-10 bg-white text-black font-semibold py-3 px-10 rounded-lg shadow-lg hover:bg-neutral-300 transition disabled:bg-neutral-500 disabled:text-neutral-800"
             >
-              Convert & Download
+              Compress & Download
               <div id="loader" class="hidden text-xs text-neutral-300 mt-2">
                 Processing…
               </div>
@@ -138,7 +135,7 @@
         setTimeout(() => {
           loader.classList.add("hidden");
           btn.disabled = false;
-          btn.textContent = "Convert & Download";
+          btn.textContent = "Compress & Download";
         }, 5000);
       });
     </script>
