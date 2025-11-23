@@ -3,15 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - PDF Darker By HMK CodeWeb </title>
-    <!-- <link rel="shortcut icon" href="./PDFDarkerLogo.png" type="image/x-icon"> -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Aout Us - PDF Darker by HMK CodeWeb</title>
+    <link rel="shortcut icon" href="/PDFDarkerLogo" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap"
       rel="stylesheet"
     />
-
     <style>
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      iframe {
+        aspect-ratio: 16/9;
+      }
+
+      .video-container {
+        margin: 2rem;
+        max-height: 300px;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      main {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        display: grid;
+        place-content: center;
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        --position: 50%;
+        /* width: 100%; */
+      }
+
+      .image-container {
+        /* max-width: 800px; */
+        max-height: 90vh;
+        /* aspect-ratio: 1/1; */
+      }
+
+      .slider-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left;
+      }
+
+      .image-before {
+        position: absolute;
+        inset: 0;
+        width: var(--position);
+        /* filter: grayscale(100%)  */
+      }
+
+      .slider {
+        position: absolute;
+        inset: 0;
+        cursor: pointer;
+        opacity: 0;
+        /* for Firefox */
+        width: 100%;
+        height: 100%;
+      }
+
+      .slider:focus-visible ~ .slider-button {
+        outline: 5px solid black;
+        outline-offset: 3px;
+      }
+
+      .slider-line {
+        position: absolute;
+        inset: 0;
+        width: 0.2rem;
+        height: 100%;
+        background-color: #fff;
+        /* z-index: 10; */
+        left: var(--position);
+        transform: translateX(-50%);
+        pointer-events: none;
+      }
+
+      .slider-button {
+        position: absolute;
+        background-color: #fff;
+        color: black;
+        padding: 0.5rem;
+        border-radius: 100vw;
+        display: grid;
+        place-items: center;
+        top: 50%;
+        left: var(--position);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        /* z-index: 100; */
+        box-shadow: 1px 1px 1px hsl(0, 50%, 2%, 0.5);
+      }
+
+      .navbar {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1rem 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.25rem;
+        border-bottom: 1px solid #3f3f46; /* neutral-700 */
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .nav-links a {
+        color: #a3a3a3; /* neutral-400 */
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: white;
+      }
       .science-gothic-Font {
         font-family: "Science Gothic", sans-serif;
         font-optical-sizing: auto;
@@ -19,125 +161,248 @@
         font-style: normal;
         font-variation-settings: "slnt" 0, "wdth" 100, "CTRS" 0;
       }
+      .Heading2 {
+        text-align: center;
+        color: white;
+        margin: 10px 0px;
+      }
+
+      .about-wrapper {
+        background: #171717;
+        padding: 4rem 1.5rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      .about-container {
+        max-width: 750px;
+        color: #fff;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        font-weight: 300;
+      }
+
+      .about-container h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .about-container p {
+        margin-bottom: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .about-container .end-text {
+        margin-top: 2rem;
+        font-weight: 400;
+      }
+      .footer {
+        width: 100%;
+        padding: 4rem 1.5rem;
+        background-color: #171717;
+        color: #ccc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .footer h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+      }
+
+      .footer p {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        opacity: 0.8;
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .footer-links a {
+        text-decoration: none;
+        font-weight: 500;
+        color: #ccc;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .divider {
+        width: 1px;
+        height: 1rem;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
     </style>
   </head>
+  <body style="background: #171717" class="science-gothic-Font">
+    <header>
+      <div class="navbar">
+        <div class="nav-left">
+          <img src="./PDFDarkerLogo" height="30" width="30" alt="" />
+          <span class="logo-text">PDF Darker</span>
+        </div>
 
-  <body
-    class="min-h-screen science-gothic-Font bg-neutral-900 text-white flex flex-col items-center p-4"
-  >
-    <!-- Navbar -->
-    <div
-      class="w-full flex-wrap gap-5 max-w-6xl flex items-center justify-between py-4 border-b border-neutral-700"
-    >
-      <div class="flex items-center space-x-2">
-        <img src="./PDFDarkerLogo" height="30px" width="30px" alt="">
-        <span class="text-xl font-semibold text-white">PDF Darker</span>
+        <nav class="nav-links">
+          <a href="/" title="Home">Home</a>
+          <a href="/about" title="About Us">About Us</a>
+          <a href="/view-pdf" title="Darker">View PDF</a>
+          <a href="/compress-pdf" title="Darker">Compress PDF</a>
+        </nav>
       </div>
-
-      <nav class="flex space-x-8 text-sm font-medium text-neutral-400">
-        <a href="/" class="hover:text-white transition">Home</a>
-        <a href="/view-pdf" class="hover:text-white transition">View PDF</a>
-        <a href="/compress-pdf" class="hover:text-white transition">Compress PDF</a>
-      </nav>
-    </div>
-
-    <!-- About Container -->
-    <div
-      class="w-full max-w-5xl mt-10 bg-neutral-800 p-10 rounded-2xl border border-neutral-700 shadow-xl"
-    >
-      <h1 class="text-4xl font-bold mb-4 text-white text-center">
-        About PDF Darker
-      </h1>
-
-      <p class="text-neutral-400 text-center max-w-3xl mx-auto mb-10">
-        We created PDF Darker to offer a clean and comfortable reading
-        experience for PDF users who prefer dark mode. Traditional PDFs with
-        bright white backgrounds can strain your eyes, especially at night. PDF
-        Darker instantly transforms any PDF into a soft, dark-themed version,
-        making reading easier and more enjoyable.
-      </p>
-
-      <!-- Mission Section -->
-      <div class="mt-10">
-        <h2 class="text-2xl font-semibold mb-3">Our Mission</h2>
-        <p class="text-neutral-400 leading-relaxed">
-          Our goal is simple: provide a fast, free, and effective tool that
-          helps users read PDFs without eye strain. Whether you're a student,
-          developer, designer, or casual reader, PDF Darker ensures your
-          documents look clean and modern.
-        </p>
-      </div>
-
-      <!-- Why choose us -->
-      <div class="mt-10">
-        <h2 class="text-2xl font-semibold mb-3">Why Choose PDF Darker?</h2>
-
-        <ul class="text-neutral-400 space-y-3 list-disc pl-6">
-          <li>Instant dark-mode conversion</li>
-          <li>Completely free to use</li>
-          <li>No files stored on server — your data is safe</li>
-          <li>Fast conversion powered by modern rendering tools</li>
-          <li>Simple, clean, and user-friendly interface</li>
-        </ul>
-      </div>
-
-      <!-- Contact Section -->
-      <div class="mt-12">
-        <h2 class="text-2xl font-semibold mb-3">Contact Us</h2>
-        <p class="text-neutral-400">
-          Have questions or suggestions? We'd love to hear from you.
-        </p>
-
-        <div class="mt-4 space-y-2 text-neutral-300">
-          <p>
-            Email: <a href="mailto:hassaanhaider.dev@proton.me" target="_blank" class="text-white hover:text-blue-400">hassaanhaider.dev@proton.me</a>
-          </p>
-          <p>
-            YouTube:
-            <a
-              href="https://www.youtube.com/@HMKCodeWeb"
-              target="_blank"
-              class="text-white hover:text-blue-400"
-              >@HMKCodeWeb</a
-            >
-          </p>
-          <p>
-            GitHub:
-            <a
-              href="https://www.github.com/hassaanhaider88"
-              target="_blank"
-              class="text-white hover:text-blue-400"
-              >github.com/hassaanhaider88</a
-            >
-          </p>
+    </header>
+    <h2 class="Heading2">How This Acctually Works</h2>
+    <main>
+      <div class="container">
+        <div class="image-container">
+          <img
+            class="image-before slider-image"
+            src="./BeforeImg"
+            alt="color photo"
+          />
+          <img
+            class="image-after slider-image"
+            src="./AfterImg"
+            alt="black and white"
+          />
+        </div>
+        <!-- step="10" -->
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          aria-label="Percentage of before photo shown"
+          class="slider"
+        />
+        <div class="slider-line" aria-hidden="true"></div>
+        <div class="slider-button" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="currentColor"
+            viewBox="0 0 256 256"
+          >
+            <rect width="256" height="256" fill="none"></rect>
+            <line
+              x1="128"
+              y1="40"
+              x2="128"
+              y2="216"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            ></line>
+            <line
+              x1="96"
+              y1="128"
+              x2="16"
+              y2="128"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            ></line>
+            <polyline
+              points="48 160 16 128 48 96"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            ></polyline>
+            <line
+              x1="160"
+              y1="128"
+              x2="240"
+              y2="128"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            ></line>
+            <polyline
+              points="208 96 240 128 208 160"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="16"
+            ></polyline>
+          </svg>
         </div>
       </div>
-    </div>
+    </main>
+    <div class="SomethingAboutUs">
+      <section class="about-wrapper">
+        <div class="about-container">
+          <h2>About PDF Darker</h2>
 
-    <footer
-      class="flex flex-col items-center justify-around w-full py-16 text-sm bg-[#171717]"
-    >
+          <p>
+            PDF Darker is built to make reading and sharing PDFs easier and more
+            comfortable. Bright white documents can be tiring for your eyes,
+            especially at night. Our tool gives you a fast way to convert any
+            PDF into a clean, dark-mode version within seconds.
+          </p>
+
+          <p>
+            Every page is processed carefully to darken backgrounds while
+            keeping text clear and readable. Whether you're a student,
+            developer, designer, or someone who prefers dark mode, PDF Darker
+            helps you create a smoother reading experience.
+          </p>
+
+          <p>
+            We also offer quick PDF compression so you can reduce file sizes
+            without losing quality. Your documents are processed instantly and
+            never stored. Simplicity, privacy, and speed are at the core of what
+            we do.
+          </p>
+
+          <p class="end-text">
+            PDF Darker is a small project with a simple goal: make your PDFs
+            cleaner, lighter on the eyes, and easier to share.
+          </p>
+        </div>
+      </section>
+    </div>
+    <footer class="footer">
       <h1>PDF Darker</h1>
-      <p class="mt-4 text-center">
-        Copyright © 2025 PDF Darker. All rights reservered.
-      </p>
-      <div class="flex items-center gap-4 mt-6">
-        <a
-          href="https://github.com/hassaanhaider88/PDF_Darker"
-          target="_blank"
-          class="font-medium text-gray-300 hover:text-white transition-all"
+      <p class="copyright">Copyright © 2025 PDF Darker. All rights reserved.</p>
+
+      <div class="footer-links">
+        <a href="https://github.com/hassaanhaider88/PDF_Darker" target="_blank"
+          >GitHub Code</a
         >
-          GitHub Code
-        </a>
-        <div class="h-4 w-px bg-black/20"></div>
-        <a
-          href="https://hassaan-haider.netlify.app"
-          target="_blank"
-          class="font-medium text-gray-300 hover:text-white transition-all"
-        >
-          Developer
+        <div class="divider"></div>
+        <a href="https://hassaan-haider.netlify.app" target="_blank"
+          >Developer
         </a>
       </div>
     </footer>
   </body>
+  <script>
+    const container = document.querySelector(".container");
+    document.querySelector(".slider").addEventListener("input", (e) => {
+      container.style.setProperty("--position", `${e.target.value}%`);
+    });
+  </script>
 </html>

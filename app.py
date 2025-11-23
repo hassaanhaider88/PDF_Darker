@@ -56,6 +56,17 @@ def favicon():
 def Logo():
     return send_from_directory('static','PDFDarkerLogo.png', mimetype="image/png")
 
+@app.route('/AfterImg')
+def AfterImg():
+    return send_from_directory('static','AfterImg.png', mimetype="image/png")
+
+@app.route('/BeforeImg')
+def BeforeImg():
+    return send_from_directory('static','BeforeImg.png', mimetype="image/png")
+
+
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')
