@@ -1,6 +1,6 @@
 import os
 import fitz  # PyMuPDF
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file,send_from_directory
 from PIL import Image, ImageOps
 import io
 
@@ -86,6 +86,9 @@ def process_pdf_in_memory(input_pdf_bytes):
 def index():
     return render_template('index.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('static', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/about')
 def about():
