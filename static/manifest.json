@@ -1,0 +1,21 @@
+{
+  "name": "PDF Darker",
+  "short_name": "PDFDarker",
+  "description": "Convert PDFs to dark mode and compress them instantly",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#171717",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/static/PDFDarkerLogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/PDFDarkerLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

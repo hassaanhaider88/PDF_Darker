@@ -58,11 +58,11 @@ def Logo():
 
 @app.route('/AfterImg')
 def AfterImg():
-    return send_from_directory('static','AfterImg.png', mimetype="image/png")
+    return send_from_directory('static','AfterImg2.png', mimetype="image/png")
 
 @app.route('/BeforeImg')
 def BeforeImg():
-    return send_from_directory('static','BeforeImg.png', mimetype="image/png")
+    return send_from_directory('static','BeforeImg2.png', mimetype="image/png")
 
 
 

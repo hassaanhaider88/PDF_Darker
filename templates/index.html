@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDF Darker By HMK CodeWeb </title>
+    <title>PDF Darker By HMK CodeWeb</title>
     <!-- <link rel="shortcut icon" href="./PDFDarkerLogo.png" type="image/x-icon"> -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,6 +11,15 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="manifest"
+      href="{{ url_for('static', filename='manifest.json') }}"
+    />
+    <meta name="theme-color" content="#171717" />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='icons/icon-192.png') }}"
     />
 
     <style>
@@ -32,7 +41,7 @@
       class="w-full flex-wrap gap-5 px-5 max-w-6xl flex items-center justify-between py-4 border-b border-neutral-700"
     >
       <div class="flex items-center space-x-2">
-        <img src="./PDFDarkerLogo" height="30px" width="30px" alt="">
+        <img src="./PDFDarkerLogo" height="30px" width="30px" alt="" />
         <span class="text-xl font-semibold text-white">PDF Darker</span>
       </div>
 
@@ -44,7 +53,10 @@
         <a href="/view-pdf" title="Darker" class="hover:text-white transition"
           >View PDF</a
         >
-        <a href="/compress-pdf" title="Darker" class="hover:text-white transition"
+        <a
+          href="/compress-pdf"
+          title="Darker"
+          class="hover:text-white transition"
           >Compress PDF</a
         >
       </nav>
@@ -101,19 +113,31 @@
         </div>
       </div>
     </div>
-    <footer class="flex flex-col items-center justify-around w-full py-16 text-sm  bg-[#171717]">
-    <h1>PDF Darker</h1>
-    <p class="mt-4 text-center">Copyright © 2025 PDF Darker. All rights reservered.</p>
-    <div class="flex items-center gap-4 mt-6">
-        <a href="https://github.com/hassaanhaider88/PDF_Darker" target="_blank" class="font-medium text-gray-300 hover:text-white transition-all">
-            GitHub Code
+    <footer
+      class="flex flex-col items-center justify-around w-full py-16 text-sm bg-[#171717]"
+    >
+      <h1>PDF Darker</h1>
+      <p class="mt-4 text-center">
+        Copyright © 2025 PDF Darker. All rights reservered.
+      </p>
+      <div class="flex items-center gap-4 mt-6">
+        <a
+          href="https://github.com/hassaanhaider88/PDF_Darker"
+          target="_blank"
+          class="font-medium text-gray-300 hover:text-white transition-all"
+        >
+          GitHub Code
         </a>
         <div class="h-4 w-px bg-black/20"></div>
-        <a href="https://hassaan-haider.netlify.app" target="_blank" class="font-medium text-gray-300 hover:text-white transition-all">
-            Developer
+        <a
+          href="https://hassaan-haider.netlify.app"
+          target="_blank"
+          class="font-medium text-gray-300 hover:text-white transition-all"
+        >
+          Developer
         </a>
-    </div>
-</footer>
+      </div>
+    </footer>
 
     <!-- Script -->
     <script>
@@ -124,7 +148,7 @@
       const btn = document.getElementById("convertBtn");
 
       fileInput.addEventListener("change", (e) => {
-        console.log(fileInput)
+        console.log(fileInput);
         if (e.target.files.length > 0) {
           fileLabel.textContent = e.target.files[0].name;
         }
@@ -141,6 +165,15 @@
           btn.textContent = "Convert & Download";
         }, 5000);
       });
+      
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/static/sw.js")
+            .then((reg) => console.log("SW registered", reg))
+            .catch((err) => console.log("SW registration failed", err));
+        });
+      }
     </script>
   </body>
 </html>
